@@ -40,7 +40,9 @@ Future<void> main() async {
     "app_init_page",
     setUp: () async {
       _initMvp();
-      when(() => AppInitMocks.appInitUseCase.execute()).thenAnswer((_) => successFuture(unit));
+      when(() => AppInitMocks.appInitUseCase.execute())
+          .thenAnswer((_) => successFuture(unit));
+      when(() => navigator.openLogin(any())).thenAnswer((_) => Future.value());
     },
     pageBuilder: () => page,
   );

@@ -19,11 +19,9 @@ class LoginPresenter extends Cubit<LoginViewModel> {
 
   LoginPresentationModel get _model => state as LoginPresentationModel;
 
-  void onChangeUsername(String username) =>
-      emit(_model.copyWith(username: username));
+  void onChangeUsername(String username) => emit(_model.copyWith(username: username));
 
-  void onChangePassword(String password) =>
-      emit(_model.copyWith(password: password));
+  void onChangePassword(String password) => emit(_model.copyWith(password: password));
 
   Future<void> onClickLogin() async {
     if (_model.isLoginEnabled) {

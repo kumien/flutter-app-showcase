@@ -1,13 +1,8 @@
-// ignore: unused_import
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/core/utils/mvp_extensions.dart';
 import 'package:flutter_demo/features/auth/login/login_presentation_model.dart';
 import 'package:flutter_demo/features/auth/login/login_presenter.dart';
 import 'package:flutter_demo/localization/app_localizations_utils.dart';
-
-const double _defaultButtonHeight = 54;
-const double _defaultRadius = 16;
 
 class LoginPage extends StatefulWidget with HasPresenter<LoginPresenter> {
   const LoginPage({
@@ -22,8 +17,10 @@ class LoginPage extends StatefulWidget with HasPresenter<LoginPresenter> {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
-    with PresenterStateMixin<LoginViewModel, LoginPresenter, LoginPage> {
+class _LoginPageState extends State<LoginPage> with PresenterStateMixin<LoginViewModel, LoginPresenter, LoginPage> {
+  final double _defaultButtonHeight = 54;
+  final double _defaultRadius = 16;
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.blue.shade700,
@@ -46,8 +43,7 @@ class _LoginPageState extends State<LoginPage>
                           decoration: InputDecoration(
                             hintText: appLocalizations.usernameHint,
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(_defaultRadius),
+                              borderRadius: BorderRadius.circular(_defaultRadius),
                             ),
                           ),
                           onChanged: (text) => presenter.onChangeUsername(text),
@@ -58,8 +54,7 @@ class _LoginPageState extends State<LoginPage>
                           decoration: InputDecoration(
                             hintText: appLocalizations.passwordHint,
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(_defaultRadius),
+                              borderRadius: BorderRadius.circular(_defaultRadius),
                             ),
                           ),
                           onChanged: (text) => presenter.onChangePassword(text),
@@ -72,12 +67,9 @@ class _LoginPageState extends State<LoginPage>
                             child: ElevatedButton(
                               onPressed: () => presenter.onClickLogin(),
                               style: ElevatedButton.styleFrom(
-                                primary: state.isLoginEnabled
-                                    ? Colors.blue
-                                    : Colors.grey,
+                                primary: state.isLoginEnabled ? Colors.blue : Colors.grey,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(_defaultRadius),
+                                  borderRadius: BorderRadius.circular(_defaultRadius),
                                 ),
                               ),
                               child: state.isLoginInProgress
