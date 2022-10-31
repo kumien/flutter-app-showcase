@@ -8,5 +8,7 @@
   "missingCredsMessage": "Please provide both username and password!",
   "usernameHint": "username",
   "passwordHint": "password",
-  "logInAction": "Log in"
+  "logInAction": "Log in",
+  "loginSuccessTitle": "Information",
+  "loginSuccessMessage": "Congratulations. You are now signed in."
 }
