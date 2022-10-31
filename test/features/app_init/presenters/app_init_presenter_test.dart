@@ -26,8 +26,7 @@ void main() {
         Mocks.userStore,
         Stream.fromIterable([const User.anonymous()]),
       );
-      when(() => AppInitMocks.appInitUseCase.execute())
-          .thenAnswer((_) => successFuture(unit));
+      when(() => AppInitMocks.appInitUseCase.execute()).thenAnswer((_) => successFuture(unit));
       when(() => navigator.openLogin(any())).thenAnswer((_) => Future.value());
 
       // WHEN
@@ -47,8 +46,7 @@ void main() {
         Mocks.userStore,
         Stream.fromIterable([const User.anonymous()]),
       );
-      when(() => AppInitMocks.appInitUseCase.execute())
-          .thenAnswer((_) => failFuture(const AppInitFailure.unknown()));
+      when(() => AppInitMocks.appInitUseCase.execute()).thenAnswer((_) => failFuture(const AppInitFailure.unknown()));
       when(() => navigator.showError(any())).thenAnswer((_) => Future.value());
 
       // WHEN
