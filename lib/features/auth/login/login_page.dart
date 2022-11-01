@@ -1,7 +1,4 @@
-// ignore: unused_import
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/core/helpers.dart';
 import 'package:flutter_demo/core/utils/mvp_extensions.dart';
 import 'package:flutter_demo/features/auth/login/login_presentation_model.dart';
 import 'package:flutter_demo/features/auth/login/login_presenter.dart';
@@ -21,35 +18,74 @@ class LoginPage extends StatefulWidget with HasPresenter<LoginPresenter> {
 }
 
 class _LoginPageState extends State<LoginPage> with PresenterStateMixin<LoginViewModel, LoginPresenter, LoginPage> {
+  final double _defaultButtonHeight = 54;
+  final double _defaultRadius = 16;
+
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: appLocalizations.usernameHint,
-                ),
-                onChanged: (text) => doNothing(), //TODO
+        backgroundColor: Colors.blue.shade700,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(_defaultRadius),
               ),
-              const SizedBox(height: 8),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: appLocalizations.passwordHint,
-                ),
-                onChanged: (text) => doNothing(), //TODO
+              child: Wrap(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: appLocalizations.usernameHint,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(_defaultRadius),
+                            ),
+                          ),
+                          onChanged: (text) => presenter.onChangeUsername(text),
+                        ),
+                        const SizedBox(height: 8),
+                        TextField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: appLocalizations.passwordHint,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(_defaultRadius),
+                            ),
+                          ),
+                          onChanged: (text) => presenter.onChangePassword(text),
+                        ),
+                        const SizedBox(height: 16),
+                        stateObserver(
+                          builder: (context, state) => SizedBox(
+                            width: double.infinity,
+                            height: _defaultButtonHeight,
+                            child: ElevatedButton(
+                              onPressed: () => presenter.onClickLogin(),
+                              style: ElevatedButton.styleFrom(
+                                primary: state.isLoginEnabled ? Colors.blue : Colors.grey,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(_defaultRadius),
+                                ),
+                              ),
+                              child: state.isLoginInProgress
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : Text(appLocalizations.logInAction),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              stateObserver(
-                builder: (context, state) => ElevatedButton(
-                  onPressed: () => doNothing(), //TODO
-                  child: Text(appLocalizations.logInAction),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       );
